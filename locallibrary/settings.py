@@ -123,3 +123,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
+
+# allows for testing password reset via email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
