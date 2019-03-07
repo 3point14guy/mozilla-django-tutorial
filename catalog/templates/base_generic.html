@@ -30,8 +30,6 @@
 
         {% if perms.catalog.can_mark_returned %}
           <li><a href="{% url 'all-borrowed'%}">All borrowed</a></li>
-        {% else %}
-          False
         {% endif %}
         </ul>
       {% endblock %}

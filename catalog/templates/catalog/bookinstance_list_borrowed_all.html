@@ -7,10 +7,11 @@
     <table>
       {% for bookinst in bookinstance_list %}
       <tr>
-        <td class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        <td>
           <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a></td>
-        <td>({{ bookinst.due_back }})</td>
+        <td {% if bookinst.overdue %}class="text-danger"{% endif %}>({{ bookinst.due_back }})</td>
         <td>{{ bookinst.borrower }}</td>
+        <td><a href="{% url 'renew-book-librarian' bookinst.id %}">Renew</a></td>
       </tr>
       {% endfor %}
     </table>
