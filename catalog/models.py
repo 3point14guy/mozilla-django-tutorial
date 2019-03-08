@@ -11,6 +11,12 @@ class Genre(models.Model):
         """String for representing the Model object."""
         return self.name
 
+class Language(models.Model):
+    name = models.CharField(max_length=50, help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+
+    def __str__(self):
+        return self.name
+        
 from django.urls import reverse
 
 class Book(models.Model):
@@ -20,6 +26,7 @@ class Book(models.Model):
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
     isbn = models.CharField('ISBN', max_length=13, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -86,9 +93,3 @@ class Author(models.Model):
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
-
-class Language(models.Model):
-    name = models.CharField(max_length=50, help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
-
-    def __str__(self):
-        return self.name
