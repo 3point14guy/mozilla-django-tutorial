@@ -10,6 +10,9 @@
       </li>
       {% endfor %}
     </ul>
+    {% if perms.catalog.can_mark_returned %}
+      <p><a href="{% url 'book_create' %}">Add Book</a></p>
+    {% endif %}
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
