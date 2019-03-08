@@ -3,6 +3,13 @@
 {% block content %}
   <h1>Author: {{ author }}</h1>
   <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
+  <br>
+  {% if perms.catalog.can_mark_returned %}
+  <ul>
+    <li><a href="{% url 'author_update' author.id %}">Update Author</a></li>
+    <li><a href="{% url 'author_delete' author.id %}">Delete Author</a></li>    
+  </ul>
+  {% endif %}
 
   <div class="association-detail">
     <h4>Books</h4>
