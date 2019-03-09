@@ -31,7 +31,7 @@ from django.views import generic
 
 class BookListView(generic.ListView):
     model = Book
-    paginate_by = 2
+    paginate_by = 10
     context_object_name = 'book_list'
     queryset = Book.objects.all()
     # queryset = Book.objects.filter(title__icontains='war')[:5]
@@ -47,7 +47,7 @@ class BookDetailView(generic.DetailView):
 
 class AuthorListView(generic.ListView):
     model = Author
-    paginate_by = 2
+    paginate_by = 10
     context_object_name = 'author_list'
     queryset = Author.objects.all()
     template_name = 'authors/author_list.html'
