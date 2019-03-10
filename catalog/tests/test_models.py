@@ -27,7 +27,7 @@ from django.test import TestCase
 from catalog.models import Author
 class AuthorModelTest(TestCase):
     @classmethod
-    def setUpTestData(clf):
+    def setUpTestData(cls):
         # set up non-modified ojects used by all test methods
         Author.objects.create(first_name="Joe", last_name="Mama")
 

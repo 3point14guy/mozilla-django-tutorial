@@ -116,24 +116,30 @@ class BookCreate(CreateView):
     model = Book
     fields = '__all__'
     initial = {'language': 'English'}
+    permission_required = 'catalog.can_mark_returned'
 
 class BookUpdate(UpdateView):
     model = Book
     fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
 
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+    permission_required = 'catalog.can_mark_returned'
 
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
     initial = {'date_of_death': '05/01/2018'}
+    permission_required = 'catalog.can_mark_returned'
 
 class AuthorUpdate(UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    permission_required = 'catalog.can_mark_returned'
 
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.can_mark_returned'

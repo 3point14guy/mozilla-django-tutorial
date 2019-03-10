@@ -30,6 +30,6 @@ class RenewBookFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_renew_form_date_max(self):
-        date = timezone.now() + datetime.timedelta(weeks=4)
+        date = datetime.date.today() + datetime.timedelta(weeks=4)
         form = RenewBookForm(data={'renewal_date': date})
         self.assertTrue(form.is_valid())
