@@ -20,10 +20,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p5+fux6xlf34ogfkvs7t5pf7=5xv&0+_c@(1p9-)=-!1x8(zde'
+
+# # development key:
+# SECRET_KEY = 'p5+fux6xlf34ogfkvs7t5pf7=5xv&0+_c@(1p9-)=-!1x8(zde'
+
+# # production key:
+import os
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'p5+fux6xlf34ogfkvs7t5pf7=5xv&0+_c@(1p9-)=-!1x8(zde')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+# # development setting:
+# DEBUG = True
+
+# # production setting:
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = []
 
@@ -42,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,9 +132,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+# The absolute path to the directory wehre collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# the URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 
 # allows for testing password reset via email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Heroku: Update database configuration from $DATABASE_URL
+import dj_database_url
+db_from_env = dj_database_url.config(con_max_age=500)
+Databases['default'].update(db_from_env)
+
+# simplified static file serving
+# https://warehouse.python.org/project/whitenoise/
+# reduce the size of static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedMainfestStaticFilesStorage'
