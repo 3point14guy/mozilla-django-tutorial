@@ -36,7 +36,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'p5+fux6xlf34ogfkvs7t5pf7=5xv&0
 # # production setting:
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['obscure-shelf-15731.herokuapp.com', 'localhost:3000', '127.0.0.1']
 
 
 # Application definition
